@@ -11,11 +11,13 @@ namespace Clase_01_09_2020
             Random random = new Random();
             int secreto = random.Next(10);
 
+            //Console.WriteLine(secreto);
+
             do
             {
 
-                Console.WriteLine("Intente adivinar el número. Tiene 3 intentos.");
-                //eleccion = int.Parse(Console.ReadLine());
+                IngresarNumero("Intente adivinar el número. Tiene 3 intentos.", out eleccion);
+                intentos++;
 
                 
 
@@ -24,25 +26,26 @@ namespace Clase_01_09_2020
 
             if(eleccion == secreto)
             {
-                Console.WriteLine("Adivinaste el numero es: "+secreto);
+               Console.WriteLine(Ganaste());
 
             }
             else 
             {
 
-                Console.WriteLine("Perdiste. Elegiste: "+eleccion+". El numero es: "+secreto);
+                Console.WriteLine(Perdiste(eleccion, ref secreto));
 
             }
 
 
 
-            static int IngresarNumero(string mensaje, int numeroElegido)
+            static void IngresarNumero(string mensaje,out int numeroElegido)
             {
 
                 Console.WriteLine(mensaje);
-                eleccion = int.Parse(Console.ReadLine());
-                intentos++;
-                return eleccion;
+                numeroElegido = int.Parse(Console.ReadLine());
+               
+
+
             }
 
 
@@ -53,9 +56,11 @@ namespace Clase_01_09_2020
                 return mensaje;
             }
 
-            static void Perdiste(int valor)
+            static string Perdiste(int valorElegido, ref int secreto  )
             {
+                string mensaje = "Perdiste. Eligiste: "+ valorElegido + "\nEl número era: "+ secreto;
 
+                return mensaje;
             }
 
 
