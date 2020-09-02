@@ -15,9 +15,9 @@ namespace Clase_01_09_2020
             {
 
                 Console.WriteLine("Intente adivinar el número. Tiene 3 intentos.");
-                eleccion = int.Parse(Console.ReadLine());
+                //eleccion = int.Parse(Console.ReadLine());
 
-                intentos++;
+                
 
             } while (eleccion != secreto && intentos < 3);
 
@@ -36,8 +36,27 @@ namespace Clase_01_09_2020
 
 
 
+            static int IngresarNumero(string mensaje, int numeroElegido)
+            {
+
+                Console.WriteLine(mensaje);
+                eleccion = int.Parse(Console.ReadLine());
+                intentos++;
+                return eleccion;
+            }
 
 
+            static string Ganaste() 
+            {
+                string mensaje = "Ganaste";
+                
+                return mensaje;
+            }
+
+            static void Perdiste(int valor)
+            {
+
+            }
 
 
         }
