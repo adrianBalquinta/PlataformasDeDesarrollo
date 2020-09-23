@@ -11,6 +11,6 @@ namespace ProyectoDeTareas
         public string Tiempo { get; set; }
         public Recursos Recurso { get; set; }
         public Tareas Tarea { get; set; }
-
+        
     }
 }
