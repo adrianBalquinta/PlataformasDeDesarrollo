@@ -7,7 +7,7 @@ namespace ProyectoDeTareas
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+          
 
             List<Tareas> tareas = new List<Tareas>();
 
