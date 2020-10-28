@@ -1,0 +1,45 @@
+﻿@page "/listadoTareas"
+
+
+@using BlazorApp1.Data
+@inject TareaService tareaService
+
+
+<h3>Listado de Tareas</h3>
+@if (tareas == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>ID</th>
+                <th>Vencimiento</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tarea in tareas)
+            {
+                <tr>
+                    <td>@tarea.Titulo</td>
+                    <td>@tarea.Id</td>
+                    <td>@tarea.Vencimiento.ToShortDateString()</td>
+                    <td>@tarea.Estado</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+    @code {
+
+private List<Tarea> tareas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        tareas = await tareaService.GetTareas();
+    }
+}
