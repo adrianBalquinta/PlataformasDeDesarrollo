@@ -1,0 +1,46 @@
+﻿@page "/usuarios/listado"
+
+@using BlazorApp1.Data
+@inject UsuarioService usuarioService
+
+<h3>Listado de Usuarios</h3>
+@if (usuarios == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>ID</th>
+                
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usuario in usuarios)
+            {
+                <tr>
+                    <td>@usuario.User</td>
+                    <td>@usuario.Id</td>
+                    
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<Usuario> usuarios;
+
+    protected override async Task OnInitializedAsync()
+    {
+        usuarios = await usuarioService.GetAll();
+    }
+
+
+}

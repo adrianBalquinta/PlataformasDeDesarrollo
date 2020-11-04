@@ -1,0 +1,47 @@
+﻿@page "/detalles/listado"
+
+@using BlazorApp1.Data
+@inject DetalleService detalleService
+
+<h3>Listado de detalles</h3>
+
+@if (detalles == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tarea</th>
+                <th>Recurso</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detalle in detalles)
+            {
+                <tr>
+                    <td>@detalle.Id</td>
+                    <td>@detalle.Tarea.Titulo</td>
+                    <td>@detalle.Recurso</td>
+                    <td>@detalle.Fecha.ToShortDateString()</td>
+                    <td>@</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<Detalle> detalles;
+
+    protected override async Task OnInitializedAsync()
+    {
+        detalles = await detalleService.GetAll();
+    }
+
+}

@@ -6,18 +6,20 @@ using System.Threading.Tasks;
 
 namespace BlazorApp1.Data
 {
-    public class TareaService
+    public class DetalleService
     {
-        private DataContext context;
 
-        public TareaService(DataContext _context)
+        private DataContext context;
+        public DetalleService(DataContext _context)
         {
             context = _context;
         }
 
-        public async Task<List<Tarea>> GetAll()
+
+
+        public async Task<List<Detalle>> GetAll()
         {
-            return await context.Tareas.ToListAsync();
+            return await context.Detalles.ToListAsync();
         }
     }
 }

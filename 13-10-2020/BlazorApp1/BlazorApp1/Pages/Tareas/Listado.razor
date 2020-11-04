@@ -1,4 +1,4 @@
-﻿@page "/listadoTareas"
+﻿@page "/tareas/listado"
 
 
 @using BlazorApp1.Data
@@ -40,6 +40,6 @@ private List<Tarea> tareas;
 
     protected override async Task OnInitializedAsync()
     {
-        tareas = await tareaService.GetTareas();
+        tareas = await tareaService.GetAll();
     }
 }

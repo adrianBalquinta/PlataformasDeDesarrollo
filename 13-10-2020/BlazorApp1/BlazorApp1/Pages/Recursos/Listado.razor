@@ -1,0 +1,47 @@
+﻿@page "/recursos/listado"
+
+@using BlazorApp1.Data
+@inject RecursoService recursoService
+
+<h3>Listado de recursos</h3>
+@if (recursos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>ID</th>
+                <th>Usuario</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recurso in recursos)
+            {
+                <tr>
+                    <td>@recurso.Nombre</td>
+                    <td>@recurso.Id</td>
+                    <td>@recurso.Usuario</td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<Recurso> recursos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        recursos = await recursoService.GetAll();
+    }
+
+}
