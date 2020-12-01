@@ -3,9 +3,13 @@
 
 @using BlazorApp1.Data
 @inject TareaService tareaService
-
+@inject NavigationManager navigation
+@inject IJSRuntime JsRuntime
 
 <h3>Listado de Tareas</h3>
+
+<button class="btn" @onclick="()=>Editar(0)">Nuevo</button>
+
 @if (tareas == null)
 {
     <p><em>Loading...</em></p>
@@ -19,27 +23,56 @@ else
                 <th>ID</th>
                 <th>Vencimiento</th>
                 <th>Estado</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var tarea in tareas)
             {
-                <tr>
-                    <td>@tarea.Titulo</td>
-                    <td>@tarea.Id</td>
-                    <td>@tarea.Vencimiento.ToShortDateString()</td>
-                    <td>@tarea.Estado</td>
-                </tr>
+            <tr>
+                <td>@tarea.Titulo</td>
+                <td>@tarea.Id</td>
+                <td>@tarea.Vencimiento.ToShortDateString()</td>
+                <td>@tarea.Estado</td>
+                <td>
+                    <button class="btn" @onclick="()=>Editar(tarea.Id)">Editar</button>
+                    <button class="btn" @onclick="()=>Borrar(tarea.Id)">Borrar</button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
 }
-    @code {
+@code {
 
-private List<Tarea> tareas;
+    private List<Tarea> tareas;
 
     protected override async Task OnInitializedAsync()
     {
         tareas = await tareaService.GetAll();
+
+        foreach (var tarea in tareas)
+        {
+            tarea.Responsable = await tareaService.GetRecursoTarea(tarea.ResponsableId);
+        }
     }
+
+    protected void Editar(int id)
+    {
+        navigation.NavigateTo("tareas/editar/" + id);
+    }
+
+    async Task Borrar(int id)
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Desea elimiar la tarea?");
+        if (confirmed)
+        {
+            await tareaService.Remove(id);
+            tareas = await tareaService.GetAll();
+        }
+    }
+
+
+
+
 }

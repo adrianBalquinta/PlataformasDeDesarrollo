@@ -2,8 +2,15 @@
 
 @using BlazorApp1.Data
 @inject RecursoService recursoService
+@inject NavigationManager navigation
+@inject IJSRuntime JsRuntime
+
 
 <h3>Listado de recursos</h3>
+
+<button class="btn" @onclick="()=>Editar(0)">Nuevo</button>
+
+
 @if (recursos == null)
 {
     <p><em>Loading...</em></p>
@@ -16,6 +23,7 @@ else
                 <th>Nombre</th>
                 <th>ID</th>
                 <th>Usuario</th>
+                <th>Acciones</th>
 
 
             </tr>
@@ -23,13 +31,14 @@ else
         <tbody>
             @foreach (var recurso in recursos)
             {
-                <tr>
-                    <td>@recurso.Nombre</td>
-                    <td>@recurso.Id</td>
-                    <td>@recurso.Usuario</td>
+            <tr>
+                <td>@recurso.Nombre</td>
+                <td>@recurso.Id</td>
+                <td>@recurso.Usuario.User.ToString()</td>
+                <td><button class="btn" @onclick="()=>Editar(recurso.Id)">Editar</button> 
+                <button class="btn" @onclick="()=>Borrar(recurso.Id)">Borrar</button></td>
 
-
-                </tr>
+            </tr>
             }
         </tbody>
     </table>
@@ -42,6 +51,29 @@ else
     protected override async Task OnInitializedAsync()
     {
         recursos = await recursoService.GetAll();
+
+
+        foreach (var recurso in recursos)
+        {
+            recurso.Usuario = await recursoService.GetUsuarioRecurso(recurso.UsuarioId);
+        }
     }
+
+    protected void Editar(int id)
+    {
+        navigation.NavigateTo("recursos/editar/" + id);
+    }
+
+    async Task Borrar(int id)
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Desea elimiar el recurso?");
+        if (confirmed)
+        {
+            await recursoService.Remove(id);
+            recursos = await recursoService.GetAll();
+        }
+    }
+
+
 
 }

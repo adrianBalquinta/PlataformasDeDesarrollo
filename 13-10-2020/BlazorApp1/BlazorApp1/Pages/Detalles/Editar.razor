@@ -1,0 +1,94 @@
+﻿@page "/detalles/editar/{id:int}"
+@using BlazorApp1.Data
+@inject DetalleService detalleService
+@inject NavigationManager navigation
+
+    <h3>Editar</h3>
+
+<EditForm Model="@Modelo" OnValidSubmit="@Guardar">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group row">
+        <label for="lastName" class="col-sm-2 col-form-label">
+            Fecha
+        </label>
+        <InputDate @bind-Value="Fecha" />
+    </div>
+    <div class="form-group row">
+        <label for="lastName" class="col-sm-2 col-form-label">
+            Tiempo
+        </label>
+        <InputText @bind-Value="Modelo.Tiempo" />
+    </div>
+    <div class="form-group row">
+        <InputSelect @bind-Value="RecursoId">
+            <option value="0">Elija un usuario</option>
+            @foreach (var item in recursos)
+            {
+                <option value="@item.Id">@item.Nombre</option>
+            }
+        </InputSelect>
+    </div>
+    <div class="form-group row">
+        <InputSelect @bind-Value="TareaId">
+            <option value="0">Elija un usuario</option>
+            @foreach (var item2 in tareas)
+            {
+                <option value="@item2.Id">@item2.Titulo</option>
+            }
+        </InputSelect>
+    </div>
+    <button type="submit">Guardar</button>
+</EditForm>
+
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public DateTime Fecha { get; set; }
+
+    public string Tiempo { get; set; }
+
+    public string RecursoId { get; set; }
+
+    public string TareaId { get; set; }
+
+    private List<Recurso> recursos;
+
+    private List<Tarea> tareas;
+
+    public Detalle Modelo { get; set; } = new Detalle();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id > 0)
+        {
+            Modelo = await detalleService.Get(Id);
+            RecursoId = Modelo.RecursoId.ToString();
+            TareaId = Modelo.TareaId.ToString();
+        }
+        else
+        {
+            Modelo = new Detalle();
+        }
+        recursos = await detalleService.GetRecursosDetalle();
+        tareas = await detalleService.GetTareasDetalle();
+
+    }
+
+
+    private async void Guardar()
+    {
+        Modelo.RecursoId = int.Parse(RecursoId);
+        Modelo.TareaId = int.Parse(TareaId);
+        await detalleService.Save(Modelo);
+        navigation.NavigateTo("detalles/listado");
+    }
+
+
+
+}

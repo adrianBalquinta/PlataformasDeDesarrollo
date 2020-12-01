@@ -2,8 +2,13 @@
 
 @using BlazorApp1.Data
 @inject UsuarioService usuarioService
+@inject NavigationManager navigation
+@inject IJSRuntime JsRuntime
 
 <h3>Listado de Usuarios</h3>
+
+<button class="btn" @onclick="()=>Editar(0)">Nuevo</button>
+
 @if (usuarios == null)
 {
     <p><em>Loading...</em></p>
@@ -15,8 +20,8 @@ else
             <tr>
                 <th>Nombre</th>
                 <th>ID</th>
-                
-                
+                <th>Acciones</th>
+
             </tr>
         </thead>
         <tbody>
@@ -25,8 +30,9 @@ else
                 <tr>
                     <td>@usuario.User</td>
                     <td>@usuario.Id</td>
-                    
-                    
+                    <td><button class="btn" @onclick="()=>Editar(usuario.Id)">Editar</button> 
+                    <button class="btn" @onclick="()=>Borrar(usuario.Id)">Borrar</button></td>
+
                 </tr>
             }
         </tbody>
@@ -40,6 +46,22 @@ else
     protected override async Task OnInitializedAsync()
     {
         usuarios = await usuarioService.GetAll();
+    }
+
+
+    protected void Editar(int id)
+    {
+        navigation.NavigateTo("usuarios/editar/" + id);
+    }
+
+    async Task Borrar(int id)
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "¿Desea elimiar el usuario?");
+        if (confirmed)
+        {
+            await usuarioService.Remove(id);
+            usuarios = await usuarioService.GetAll();
+        }
     }
 
 
