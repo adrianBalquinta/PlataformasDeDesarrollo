@@ -24,7 +24,7 @@ namespace BlazorApp1.Data
 
         public async Task<List<Tarea>> GetAll()
         {
-            return await context.Tareas.ToListAsync();
+            return await context.Tareas.Include(i=>i.Responsable).ToListAsync();
         }
 
         public async Task<List<Recurso>> GetRecursos()

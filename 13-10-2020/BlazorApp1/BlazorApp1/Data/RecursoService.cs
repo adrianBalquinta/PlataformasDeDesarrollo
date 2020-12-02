@@ -29,7 +29,7 @@ namespace BlazorApp1.Data
 
         public async Task<List<Recurso>> GetAll()
         {
-            return await context.Recursos.ToListAsync();
+            return await context.Recursos.Include(i=>i.Usuario).ToListAsync();
         }
 
         public async Task<List<Usuario>> GetUsuariosRecurso()

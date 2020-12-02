@@ -34,7 +34,7 @@ else
             <tr>
                 <td>@recurso.Nombre</td>
                 <td>@recurso.Id</td>
-                <td>@recurso.Usuario.User.ToString()</td>
+                <td>@recurso.Usuario.User</td>
                 <td><button class="btn" @onclick="()=>Editar(recurso.Id)">Editar</button> 
                 <button class="btn" @onclick="()=>Borrar(recurso.Id)">Borrar</button></td>
 
@@ -52,11 +52,11 @@ else
     {
         recursos = await recursoService.GetAll();
 
-
+        /*
         foreach (var recurso in recursos)
         {
             recurso.Usuario = await recursoService.GetUsuarioRecurso(recurso.UsuarioId);
-        }
+        }*/
     }
 
     protected void Editar(int id)

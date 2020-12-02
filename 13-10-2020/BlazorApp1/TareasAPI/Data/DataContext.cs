@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Model.Entidades;
 
 namespace TareasAPI.Data
 {
@@ -13,11 +14,13 @@ namespace TareasAPI.Data
 
             optionsBuilder.UseSqlite("Data Source=tareas.db");
 
+          
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*
+            
 
             modelBuilder.Entity<Usuario>()
                 .ToTable("Usuarios")
@@ -36,14 +39,16 @@ namespace TareasAPI.Data
             modelBuilder.Entity<Detalle>()
                .ToTable("Detalles");
 
-
-            */
+            
 
 
         }
 
 
-
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Tarea> Tareas { get; set; }
+        public DbSet<Recurso> Recursos { get; set; }
+        public DbSet<Detalle> Detalles { get; set; }
 
     }
 }
