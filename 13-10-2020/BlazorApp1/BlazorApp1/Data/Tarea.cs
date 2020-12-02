@@ -16,7 +16,7 @@ namespace BlazorApp1.Data
             Vencimiento = vencimiento;
             Estimacion = estimacion;
             Responsable = responsable;
-            Estado = true;
+            Estado = false;
         }
 
         public int Id { get; set; }
