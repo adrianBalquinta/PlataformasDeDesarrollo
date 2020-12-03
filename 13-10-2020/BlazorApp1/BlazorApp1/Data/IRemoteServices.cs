@@ -1,4 +1,5 @@
-﻿using Refit;
+﻿using Model.Entidades;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Linq;

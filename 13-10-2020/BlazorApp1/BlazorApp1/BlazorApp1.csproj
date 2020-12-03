@@ -18,4 +18,8 @@
     <PackageReference Include="Refit" Version="5.2.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj" />
+  </ItemGroup>
+
 </Project>

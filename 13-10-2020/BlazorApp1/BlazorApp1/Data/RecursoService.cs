@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Model.Entidades;
 using Refit;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace BlazorApp1.Data
             return await remoteService.GetAllRecurso();
             //return await context.Recursos.Include(i=>i.Usuario).ToListAsync();
         }
-
+        /*
         public async Task<List<Usuario>> GetUsuariosRecurso()
         {
             return await context.Usuarios.ToListAsync();
@@ -45,11 +46,12 @@ namespace BlazorApp1.Data
             //var remoteService = RestService.For<IRemoteService>("!-https://localhost:44332/api/");
             //return await remoteService.GetUsuario(id);
             return await context.Usuarios.Where(i => i.Id == id).SingleAsync();
-        }
+        }*/
 
 
         public async Task<Recurso> Save(Recurso value)
         {
+            /*
             if (value.Id == 0)
             {
                 await context.Recursos.AddAsync(value);
@@ -60,9 +62,9 @@ namespace BlazorApp1.Data
             }
             await context.SaveChangesAsync();
 
-            return value;
-            //var remoteService = RestService.For<IRemoteService>("!-https://localhost:44332/api/");
-            //return await remoteService.GuardarUsuario(value);
+            return value;*/
+            var remoteService = RestService.For<IRemoteServices>("https://localhost:44374/api/");
+            return await remoteService.CrearRecurso(value);
         }
 
         public async Task<bool> Remove(int id)

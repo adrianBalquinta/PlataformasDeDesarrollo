@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Model.Entidades;
 using TareasAPI.Data;
 
@@ -23,7 +24,7 @@ namespace TareasAPI.Controllers
         [HttpGet]
         public List<Recurso> Get()
         {
-            return _context.Recursos.ToList();
+            return _context.Recursos.Include(i => i.Usuario).ToList();
         }
 
     }

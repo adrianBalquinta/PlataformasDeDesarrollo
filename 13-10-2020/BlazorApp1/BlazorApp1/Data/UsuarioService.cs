@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Model.Entidades;
 using Refit;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,7 @@ namespace BlazorApp1.Data
 
         public async Task<Usuario> Save(Usuario value)
         {
+            /*
             if (value.Id == 0)
             {
                 await context.Usuarios.AddAsync(value);
@@ -42,9 +44,9 @@ namespace BlazorApp1.Data
             }
             await context.SaveChangesAsync();
 
-            return value;
-            //var remoteService = RestService.For<IRemoteService>("!-https://localhost:44332/api/");
-            //return await remoteService.GuardarUsuario(value);
+            return value;*/
+            var remoteService = RestService.For<IRemoteServices>("https://localhost:44374/api/");
+            return await remoteService.GuardarUsuario(value);
         }
 
 

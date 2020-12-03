@@ -1,5 +1,6 @@
 ﻿@page "/detalles/listado"
 
+@using Model.Entidades
 @using BlazorApp1.Data
 @inject DetalleService detalleService
 @inject NavigationManager navigation
@@ -52,12 +53,12 @@ else
     {
         detalles = await detalleService.GetAll();
 
-
+        /*
         foreach (var detalle in detalles)
         {
             detalle.Recurso = await detalleService.GetRecursoDetalle(detalle.RecursoId);
             detalle.Tarea = await detalleService.GetTareaDetalle(detalle.TareaId);
-        }
+        }*/
     }
 
     protected void Editar(int id)
