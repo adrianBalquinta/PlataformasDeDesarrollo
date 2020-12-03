@@ -1,6 +1,8 @@
 ﻿@page "/recursos/editar/{id:int}"
+@using Model.Entidades
 @using BlazorApp1.Data
 @inject RecursoService recursoService
+@inject UsuarioService usuarioService
 @inject NavigationManager navigation
 
 
@@ -57,7 +59,7 @@
         {
             Modelo = new Recurso();
         }
-        usuarios = await recursoService.GetUsuariosRecurso();
+        usuarios = await usuarioService.GetAll();
     }
 
 

@@ -1,6 +1,9 @@
 ﻿@page "/detalles/editar/{id:int}"
+@using Model.Entidades
 @using BlazorApp1.Data
 @inject DetalleService detalleService
+@inject RecursoService recursoService
+@inject TareaService tareaService
 @inject NavigationManager navigation
 
     <h3>Editar</h3>
@@ -75,8 +78,8 @@
         {
             Modelo = new Detalle();
         }
-        recursos = await detalleService.GetRecursosDetalle();
-        tareas = await detalleService.GetTareasDetalle();
+        recursos = await recursoService.GetAll();
+        tareas = await tareaService.GetAll();
 
     }
 

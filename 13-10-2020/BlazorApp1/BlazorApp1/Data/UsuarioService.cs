@@ -11,6 +11,7 @@ namespace BlazorApp1.Data
     public class UsuarioService
     {
 
+
         private DataContext context;
         public UsuarioService(DataContext _context)
         {
