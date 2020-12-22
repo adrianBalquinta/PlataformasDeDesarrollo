@@ -25,8 +25,8 @@
         <InputText @bind-Value="Modelo.Tiempo" />
     </div>
     <div class="form-group row">
-        <InputSelect @bind-Value="RecursoId">
-            <option value="0">Elija un usuario</option>
+        <InputSelect @bind-Value="RecursoId" required>
+            <option value="0">Elija un recurso</option>
             @foreach (var item in recursos)
             {
                 <option value="@item.Id">@item.Nombre</option>

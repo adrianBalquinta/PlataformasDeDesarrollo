@@ -32,7 +32,7 @@ else
                     <td>@usuario.User</td>
                     <td>@usuario.Id</td>
                     <td><button class="btn" @onclick="()=>Editar(usuario.Id)">Editar</button> 
-                    <button class="btn" @onclick="()=>Borrar(usuario.Id)">Borrar</button></td>
+                        <button class="btn" @onclick="()=>Borrar(usuario.Id)">Borrar</button></td>
 
                 </tr>
             }
@@ -54,12 +54,13 @@ else
     {
         navigation.NavigateTo("usuarios/editar/" + id);
     }
-
+    
     async Task Borrar(int id)
     {
         bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "¿Desea elimiar el usuario?");
         if (confirmed)
         {
+
             await usuarioService.Remove(id);
             usuarios = await usuarioService.GetAll();
         }

@@ -16,6 +16,7 @@ namespace Model.Entidades
             Estimacion = estimacion;
             Responsable = responsable;
             Estado = false;
+            
         }
 
         public int Id { get; set; }

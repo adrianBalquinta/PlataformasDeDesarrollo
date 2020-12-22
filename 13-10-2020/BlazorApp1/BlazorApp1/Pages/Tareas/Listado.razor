@@ -39,6 +39,7 @@ else
                 <td>
                     <button class="btn" @onclick="()=>Editar(tarea.Id)">Editar</button>
                     <button class="btn" @onclick="()=>Borrar(tarea.Id)">Borrar</button>
+                    <button class="btn" @onclick="()=>Detalles(tarea.Id)">Detalles</button>
                 </td>
             </tr>
             }
@@ -76,6 +77,9 @@ else
     }
 
 
-
+    protected void Detalles(int id)
+    {
+        navigation.NavigateTo("tareas/ListadoDetalles/" + id);
+    }
 
 }

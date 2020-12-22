@@ -11,16 +11,23 @@ namespace BlazorApp1.Data
     public class DetalleService
     {
 
-        private DataContext context;
-        public DetalleService(DataContext _context)
+        
+        public DetalleService()
         {
-            context = _context;
+            
         }
 
         public async Task<Detalle> Get(int id)
         {
             var remoteService = RestService.For<IRemoteServices>("https://localhost:44374/api/");
             return await remoteService.GetDetalle(id);
+            //return await context.Detalles.Where(i => i.Id == id).SingleAsync();
+        }
+
+        public async Task<List<Detalle>> GetDetalle(int id)
+        {
+            var remoteService = RestService.For<IRemoteServices>("https://localhost:44374/api/");
+            return await remoteService.GetDetalleTarea(id);
             //return await context.Detalles.Where(i => i.Id == id).SingleAsync();
         }
 
@@ -78,10 +85,14 @@ namespace BlazorApp1.Data
 
         public async Task<bool> Remove(int id)
         {
+            /*
             var entidad = await context.Detalles.Where(i => i.Id == id).SingleAsync();
             context.Detalles.Remove(entidad);
-            await context.SaveChangesAsync();
-            return true;
+            await context.SaveChangesAsync();*/
+
+            var remoteService = RestService.For<IRemoteServices>("https://localhost:44374/api/");
+            return await remoteService.DeleteDetalle(id);
+            
         }
 
     }

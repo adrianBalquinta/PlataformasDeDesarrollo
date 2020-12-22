@@ -70,10 +70,14 @@ namespace BlazorApp1.Data
 
         public async Task<bool> Remove(int id)
         {
+            /*
             var entidad = await context.Tareas.Where(i => i.Id == id).SingleAsync();
             context.Tareas.Remove(entidad);
             await context.SaveChangesAsync();
-            return true;
+            return true;*/
+
+            var remoteService = RestService.For<IRemoteServices>("https://localhost:44374/api/");
+            return await remoteService.DeleteTarea(id);
         }
 
 

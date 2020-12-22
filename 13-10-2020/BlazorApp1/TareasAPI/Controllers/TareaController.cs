@@ -48,5 +48,27 @@ namespace TareasAPI.Controllers
             return Ok(valor);
         }
 
+        [HttpDelete("{valor}")]
+        public IActionResult Delete(int valor)
+        {
+
+
+            var eliminado = _context.Tareas.Local.SingleOrDefault(e => e.Id == valor);
+
+            if (eliminado != null)
+            {
+                _context.Entry(eliminado).State = EntityState.Deleted;
+                _context.SaveChanges();
+
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+
+
+        }
+
     }
 }

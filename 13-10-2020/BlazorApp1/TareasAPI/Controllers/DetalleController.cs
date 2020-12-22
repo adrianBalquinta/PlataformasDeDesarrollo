@@ -27,6 +27,12 @@ namespace TareasAPI.Controllers
             return _context.Detalles.Include(i=>i.Recurso).Include(i=>i.Tarea).ToList();
         }
 
+        [HttpGet("{id}")]
+        public List<Detalle> Get(int id)
+        {
+            return _context.Detalles.Where(i => i.TareaId == id).Include(i => i.Recurso).ToList();
+        }
+
         [HttpPost]
         public IActionResult Post(Detalle valor)
         {
@@ -46,6 +52,32 @@ namespace TareasAPI.Controllers
             _context.SaveChanges();
             return Ok(valor);
         }
+
+        [HttpDelete("{valor}")]
+        public IActionResult Delete(int valor)
+        {
+
+
+            var eliminado = _context.Detalles.Local.SingleOrDefault(e => e.Id == valor);
+
+            if (eliminado != null)
+            {
+                _context.Entry(eliminado).State = EntityState.Deleted;
+                _context.SaveChanges();
+
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+            
+
+        }
+
+
+
+
 
     }
 }
